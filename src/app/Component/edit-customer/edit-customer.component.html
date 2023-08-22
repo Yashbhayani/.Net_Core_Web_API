@@ -1,0 +1,58 @@
+<div class="container-fluid center ">
+    <div class="container mb3">
+          <div class="container-fluid">
+              <h1 mat-dialog-title class="font-effect-outline">Customer Form</h1>
+                  <div mat-dialog-content class="example-container">
+                      <form [formGroup]="CustomerEditForm" (ngSubmit)="EditInsuranceData()">
+                          <div class="example-form-fields">
+                          <mat-form-field appearance="outline">
+                              <mat-label>First Name</mat-label>
+                              <input matInput placeholder="First Name" formControlName="FirstName">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                              <mat-label>Last Name</mat-label>
+                              <input matInput placeholder="Last Name" formControlName="LastName">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email id" formControlName="Email">
+                          </mat-form-field>
+                        </div>
+                        <div class="example-form-fields">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput placeholder="9876543210" formControlName="MobileNumber">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                              <mat-label>Insurance Type</mat-label>
+                              <mat-select  formControlName="InsuranceType"  >
+                                <mat-option *ngFor="let i of InsuranceTypee" [value]="i.insuranceType">
+                                  {{i.insuranceType}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                              <mat-label>Insurance Amount</mat-label>
+                              <input matInput placeholder="Insurance Amount" type="number" formControlName="InsuranceAmount">
+                            </mat-form-field>
+                            </div>
+                            <div class="example-form-fields">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Insurance Purchase Date</mat-label>
+                              <input matInput [matDatepicker]="picker" formControlName="InsurancePurchaseDate">
+                              <mat-hint>MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            </div>
+                            <div mat-dialog-actions>
+                              <button mat-raised-button color="accent"  [disabled]="CustomerEditForm.invalid"> Update </button>
+                            </div>
+                      </form>
+                  </div>
+                  <div mat-dialog-actions [align]="'end'">
+                    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+                  </div>
+          </div>
+    </div>
+</div>

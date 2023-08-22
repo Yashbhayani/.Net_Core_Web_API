@@ -1,0 +1,38 @@
+<div class="container-fluid center ">
+  <table class="container-fluid table table-bordered border-primary">
+    <tbody>
+      <tr>
+        <th scope="col">First Name</th>
+        <td>{{AData.firstName}}</td>
+      </tr>
+      <tr>
+        <th scope="col">Last Name</th>
+        <td>{{AData.lastName}}</td>
+      </tr>
+      <tr>
+        <th scope="col">Email Id</th>
+        <td>{{AData.email}}</td>
+      </tr>
+      <tr>
+        <th scope="col">Phone No.</th>
+        <td>{{AData.phone}}</td>
+      </tr>
+      <tr>
+        <th scope="col">Insurance Type</th>
+        <td>{{AData.insuranceType}}</td>
+      </tr>
+      <tr>
+        <th scope="col">Insurance Amount</th>
+        <td>{{AData.insurance_Amount}}</td>
+      </tr>
+      <tr>
+        <th scope="col">Insurance Purchase Date</th>
+        <td>{{AData.insurance_Purchase_Date | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  </div>
+</div>
