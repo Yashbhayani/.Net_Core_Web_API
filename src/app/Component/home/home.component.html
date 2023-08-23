@@ -1,0 +1,164 @@
+<div class="container-fluid">
+  <div class="alert alert-{{Color}} alert-dismissible fade show" [hidden]="AlertVal" role="alert">
+    {{Message}}
+    <button type="button" class="btn-close" [hidden]="AlertVal" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<div class="container-lg p-5">
+  <form class="row g-3" [formGroup]="productForm" (ngSubmit)="MinMax()">
+    <div class="col-md-6">
+      <label for="inputFirstName" class="form-label">Min Value</label>
+      <input type="number" class="form-control" id="inputFirstName" formControlName="Min_Value" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputLastName" class="form-label">Max Value</label>
+      <input type="number" class="form-control" id="inputLastName" formControlName="Max_Value" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputType" class="form-label">Insurance Type</label>
+      <select id="inputType" class="form-select" formControlName="InsuranceType" required>
+        <option *ngFor="let i of InsuranceTypeee" [value]="i.insuranceType">
+          {{ i.insuranceType }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="inputDate" class="form-label">Insurance Purchase Date</label>
+      <input type="date" class="form-control" id="inputDate" formControlName="InsurancePurchaseDate"
+        value="{{ inputDate  | date:'yyyy-MM-dd' }}" required>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-outline-warning me-2">Success</button>
+      <button type="button" class="btn btn-outline-danger" (click)="Reset()">Reset</button>
+    </div>
+  </form>
+</div>
+<div class="container-fluid">
+  <nav class="navbar p-2">
+    <div class="container-fluid mb3">
+      <a class="navbar-brand"></a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2 mb-3" type="search" placeholder="Search" aria-label="Search" size="50"
+          name="firstname" [(ngModel)]="fname1" autocomplete="off" (ngModelChange)="Search()">
+      </form>
+    </div>
+  </nav>
+  <table class="table table-hover text-center">
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Insurance Type</th>
+      <th scope="col">Insurance Amount</th>
+      <th scope="col">Insurance Purchase Date</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </thead>
+    <tbody *ngFor="
+            let item of Customer |
+              paginate
+              : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems:count
+              }; let i = index">
+      <tr>
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.phone}}</td>
+        <td>{{item.insuranceType}}</td>
+        <td>{{item.insurance_Amount}}</td>
+        <td>{{item.insurance_Purchase_Date | date: 'dd/MM/yyyy'}}</td>
+        <td><i class="bi bi-pen-fill btn btn-outline-primary" (click)="Openmodel(item.id)"></i></td>
+        <td><i class="bi bi-trash btn btn-outline-danger" (click)="DeleteCustomer(item.id)"></i></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="d-flex justify-content-center">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm">
+            <option *ngFor="let size of tableSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Model1 -->
+<div class="modal" id="editModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Customer</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="Closemodel()"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="CustomerEditForm" (ngSubmit)="EditInsuranceData()">
+          <div class="col-md-4">
+            <label for="inputFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="inputFirstName" formControlName="FirstName" required>
+          </div>
+          <div class="col-md-4">
+            <label for="inputLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="inputLastName" formControlName="LastName" required>
+          </div>
+          <div class="col-md-4">
+            <label for="inputPhone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="inputPhone" formControlName="MobileNumber" required>
+          </div>
+          <div class="col-md-6">
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail" formControlName="Email" required>
+          </div>
+          <div class="col-md-6">
+            <label for="inputType" class="form-label">Insurance Type</label>
+            <select id="inputType" class="form-select" formControlName="InsuranceType" required>
+              <option *ngFor="let i of InsuranceTypee" [value]="i.insuranceType">
+                {{ i.insuranceType }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="inputAmount" class="form-label">Insurance Amount</label>
+            <input type="number" class="form-control" id="inputAmount" formControlName="InsuranceAmount" required>
+          </div>
+          <div class="col-md-6">
+            <label for="inputDate" class="form-label">Insurance Purchase Date</label>
+            <input type="date" class="form-control" id="inputDate" formControlName="InsurancePurchaseDate"
+              value="{{ inputDate  | date:'yyyy-MM-dd' }}" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-outline-warning">Update</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="Closemodel()">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

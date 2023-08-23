@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="alert alert-{{Color}} alert-dismissible fade show" [hidden]="AlertVal" role="alert">
+    {{Message}}
+    <button type="button" class="btn-close" [hidden]="AlertVal" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+<div class="container-lg p-5">
+  <form class="row g-3" [formGroup]="CustomerForm" (ngSubmit)="AddInsuranceData()">
+    <div class="col-md-4">
+      <label for="inputFirstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="inputFirstName" formControlName="FirstName" required>
+    </div>
+    <div class="col-md-4">
+      <label for="inputLastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="inputLastName" formControlName="LastName" required>
+    </div>
+    <div class="col-md-4">
+      <label for="inputPhone" class="form-label">Phone</label>
+      <input type="tel" class="form-control" id="inputPhone" formControlName="MobileNumber" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputEmail" class="form-label">Email</label>
+      <input type="email" class="form-control" id="inputEmail" formControlName="Email" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputType" class="form-label">Insurance Type</label>
+      <select id="inputType" class="form-select" formControlName="InsuranceType" required>
+        <option *ngFor="let i of InsuranceTypee" [value]="i.insuranceType">
+          {{ i.insuranceType }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="inputAmount" class="form-label">Insurance Amount</label>
+      <input type="number" class="form-control" id="inputAmount" formControlName="InsuranceAmount" required>
+    </div>
+    <div class="col-md-6">
+      <label for="inputDate" class="form-label">Insurance Purchase Date</label>
+      <input type="date" class="form-control" id="inputDate" formControlName="InsurancePurchaseDate" required>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="CustomerForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>
